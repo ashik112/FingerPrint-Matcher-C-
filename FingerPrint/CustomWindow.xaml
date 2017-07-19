@@ -1,0 +1,18 @@
+﻿<Window x:Class="FingerPrint.CustomWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FingerPrint"
+        mc:Ignorable="d"
+        Title="CustomWindow" Height="300" Width="300">
+    <Grid Background="#FF9CC9DE">
+        <Image x:Name="ImageProfile" HorizontalAlignment="Left" Height="68" Margin="22,10,0,0" VerticalAlignment="Top" Width="56"/>
+        <TextBlock HorizontalAlignment="Left" Margin="22,103,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="22,124,0,0" TextWrapping="Wrap" Text="Gender" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="22,145,0,0" TextWrapping="Wrap" Text="Date of Birth" VerticalAlignment="Top"/>
+        <Image x:Name="ImageFinger" HorizontalAlignment="Left" Height="135" Margin="184,46,0,0" VerticalAlignment="Top" Width="98"/>
+        <Button x:Name="buttonOK" Content="OK" HorizontalAlignment="Left" Margin="117,239,0,0" VerticalAlignment="Top" Width="75" Click="buttonOK_Click"/>
+
+    </Grid>
+</Window>
