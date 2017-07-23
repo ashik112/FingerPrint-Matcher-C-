@@ -29,7 +29,7 @@ namespace FingerPrint
     public partial class CheckPerson : Window
     {
         OpenFileDialog op;
-        byte[] ImageFinger;
+        static byte[] ImageFinger;
         BitmapImage FingerImage;
         Home home;
         public static BitmapImage CustomImageFinger;
@@ -119,13 +119,38 @@ namespace FingerPrint
 
             return Out;
         }
-        private  void CheckPerson_Click(object sender, RoutedEventArgs e)
-        { 
 
-            string s = Convert.ToBase64String(ImageFinger);
-            MessageBox.Show(s.Length+"");
-            string Out= HTTP_POST("http://localhost:50211/api/Persons/PostPersonByFinger?myarray=", s);
-            MessageBox.Show(Out+"");
+        private static async void Upload()
+        {
+            HttpClient client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:50211/api/upload");
+            var content = new MultipartFormDataContent();
+
+            byte[] byteArray = ImageFinger;
+            //content.Add(new ByteArrayContent(byteArray), "file", "file.jpg");
+            content.Add(new ByteArrayContent(byteArray));
+            request.Content = content;
+            //request.Content = new ByteArrayContent(byteArray);
+
+            var response = await client.SendAsync(request);
+            //response.EnsureSuccessStatusCode();
+            MessageBox.Show(await response.Content.ReadAsStringAsync() );
+            //return await response.Content.ReadAsStringAsync();
+        }
+        private  void CheckPerson_Click(object sender, RoutedEventArgs e)
+        {
+            Upload();
+            
+            
+            
+            
+            //.GetAwaiter().GetResult();
+            //Console.WriteLine(responsePayload);
+           
+            /* string s = Convert.ToBase64String(ImageFinger);
+             MessageBox.Show(s.Length+"");
+             string Out= HTTP_POST("http://localhost:50211/api/Persons/PostPersonByFinger?myarray=", s);
+             MessageBox.Show(Out+"");*/
 
             //string s4 = HttpServerUtility.UrlTokenEncode(ImageFinger);
             /* HttpResponseMessage responseEmployeeByCity = ClientRequest("api/Persons/GetPersonByFinger?finger=" + s4);

@@ -13,12 +13,15 @@ using System.Runtime.Serialization.Formatters.Binary;
 using FingerPrint.Info;
 using System.Drawing;
 using System.ComponentModel;
+using System.Net.Http;
 
 namespace FingerPrint.Utilities
 {
     public class Converters
-    {    
-       
+    {
+
+        
+
 
         // Byte to ImageSource Converter
         public static ImageSource ByteToImage(byte[] imageData)

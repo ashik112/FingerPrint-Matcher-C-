@@ -9,9 +9,15 @@ using FingerPrint.Utilities;
 using SourceAFIS.Simple;
 using System.Drawing;
 using FingerPrint.Info;
+using System.Net.Http;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace FingerPrint
 {
+
     /// <summary>
     /// Interaction logic for InsertPerson.xaml
     /// </summary>
@@ -22,8 +28,8 @@ namespace FingerPrint
     {
         
         private Home home;
-        byte[] ImageProfile;
-        byte[] ImageFinger;
+        static byte[] ImageProfile;
+        static byte[] ImageFinger;
         string gender;
         BitmapImage FingerImage;
 
@@ -139,18 +145,22 @@ namespace FingerPrint
             }
         }
 
-        private void submit_Click(object sender, RoutedEventArgs e)
+        private  void submit_Click(object sender, RoutedEventArgs e)
         {
-            MyPerson person = CloudAFIS.GetTemplateObject(FingerImage);
-            int result = CloudAFIS.CheckPerson(person);
-            if (result >= 0)
-            {
-                MessageBox.Show("Person already exist!!!");
-                return;
-            }
            
+            
 
-            CloudAFIS cloud = new CloudAFIS();
+            MyPerson person = CloudAFIS.GetTemplateObject(FingerImage);
+            List<MyPerson> p = new List<MyPerson>();
+            p.Add(person);
+            BinaryFormatter formatter = new BinaryFormatter();
+            MemoryStream ms = new MemoryStream();
+            formatter.Serialize(ms, person);
+            byte[] steam = ms.GetBuffer();
+            UploadTemplate(steam,textName.Text, gender,textDOB.Text, "", "");
+
+
+         
             //  MyPerson person = CloudAFIS.GetTemplateObject(Converters.ByteToBitmapImage(ImageFinger));
           //  MyPerson person = CloudAFIS.GetTemplateObject(FingerImage);
             // string person = cloud.GetTemplate(Converters.ByteToBitmapImage(ImageFinger));
@@ -165,7 +175,7 @@ namespace FingerPrint
             // person.Fingerprints.Add(fp);
             //  Afis.Extract(person);
 
-            DbActions db = new DbActions();
+            /*DbActions db = new DbActions();
             bool status=db.CreateUser(ImageProfile,textName.Text,gender,textDOB.Text, ImageFinger, person);
             if(status)
             {
@@ -174,8 +184,104 @@ namespace FingerPrint
             else
             {
                 MessageBox.Show("Data Insert Failed!");
+            }*/
+        }
+
+        public static async Task<string> UploadProfile()
+        {
+           
+
+            HttpClient client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:50211/api/upload/uploadprofile");
+            var content = new MultipartFormDataContent();
+
+            byte[] byteArray = ImageProfile;
+            //content.Add(new ByteArrayContent(byteArray), "file", "file.jpg");
+            content.Add(new ByteArrayContent(byteArray));
+            request.Content = content;
+            //request.Content = new ByteArrayContent(byteArray);
+
+            var response = await client.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+            //MessageBox.Show(await response.Content.ReadAsStringAsync());
+           // return await response.Content.ReadAsStringAsync();
+           return await response.Content.ReadAsStringAsync();
+        }
+
+        public static async Task<string> UploadFinger()
+        {
+
+            HttpClient client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:50211/api/upload/uploadfinger");
+            var content = new MultipartFormDataContent();
+
+            byte[] byteArray = ImageFinger;
+            //content.Add(new ByteArrayContent(byteArray), "file", "file.jpg");
+            content.Add(new ByteArrayContent(byteArray));
+            request.Content = content;
+            //request.Content = new ByteArrayContent(byteArray);
+
+            var response = await client.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+            //MessageBox.Show(await response.Content.ReadAsStringAsync());
+            return await response.Content.ReadAsStringAsync();
+            //return await response.Content.ReadAsStringAsync();
+        }
+
+
+
+        public void WorkThreadFunction()
+        {
+            try
+            {
+                // do any background work
+            }
+            catch (Exception ex)
+            {
+                // log errors
             }
         }
+
+        public static async void UploadTemplate(byte[] template,string name,string gender, string dob,string plocation,string flocation)
+        {
+
+            //Thread thread = new Thread(new ThreadStart(WorkThreadFunction));
+            //thread.Start();
+
+            Task<string> p = UploadProfile(); 
+             plocation = await p;
+
+            Task<string> f = UploadFinger();
+            // flocation = UploadFinger().GetAwaiter().GetResult();
+            flocation = await f;
+            /*plocation = plocation.Replace('"', ' ').Trim();
+            flocation = flocation.Replace('"', ' ').Trim();
+
+            plocation = plocation.Replace(@"\\", @"\");
+            flocation = flocation.Replace(@"\\", @"\");*/
+            MessageBox.Show(plocation+ "\n\n\n "+flocation);
+
+            HttpClient client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:50211/api/upload/uploadtemplate?name="+"{"+ name + "}&"+"gender="+"{"+gender+"}"+"&"+"dob="+"{"+dob+"}"
+                +"&"+"plocation="+"{"+plocation+"}"+"&"+"flocation="+"{"+flocation+"}");
+            var content = new MultipartFormDataContent();
+
+            byte[] byteArray = template;
+            //content.Add(new ByteArrayContent(byteArray), "file", "file.jpg");
+            content.Add(new ByteArrayContent(byteArray));
+            //content.Add(new StringContent("name"));
+            //content.Add(new StringContent("gender"));
+            //content.Add(new StringContent("dob"));
+            request.Content = content;
+           // request.Content = new ByteArrayContent(byteArray);
+
+            var response = await client.SendAsync(request);
+            //response.EnsureSuccessStatusCode();
+            MessageBox.Show(await response.Content.ReadAsStringAsync());
+            // return await response.Content.ReadAsStringAsync();
+            //return await response.Content.ReadAsStringAsync();
+        }
+
 
         private void radioMale_Checked(object sender, RoutedEventArgs e)
         {
