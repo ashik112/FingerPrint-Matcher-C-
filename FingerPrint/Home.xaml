@@ -5,27 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FingerPrint"
         mc:Ignorable="d"
-        Title="Home" Height="350" Width="525"
-        WindowStartupLocation="CenterScreen">
-    <Grid Background="#FF9CC9DE">
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Select Desired Action" VerticalAlignment="Top" FontSize="36" FontFamily="Harlow Solid Italic" Foreground="White" Margin="93,24,0,0"/>
-        <Button x:Name="checkPerson" Content="Check Person" HorizontalAlignment="Left" Margin="134,125,0,0" VerticalAlignment="Top" Width="98" Height="57" Foreground="White" FontWeight="Bold" FontSize="14" Click="checkPerson_Click">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="0"/>
-                    <GradientStop Color="#FF30B1EE" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
-        <Button x:Name="insertPerson" Content="Insert Person" HorizontalAlignment="Left" Margin="293,125,0,0" VerticalAlignment="Top" Width="100" Height="57" Foreground="White" FontWeight="Bold" FontSize="14" Click="insertPerson_Click">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="0"/>
-                    <GradientStop Color="#FF30B1EE" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
-        <Button x:Name="logOut" Content="Sign Out" HorizontalAlignment="Left" Margin="394,265,0,0" VerticalAlignment="Top" Width="75" Click="logOut_Click"/>
+        Title="Home" Height="600" Width="600"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized">
+    <Grid >
+        <Grid.Background>
+            <ImageBrush ImageSource="resource/background_image.jpg"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+        </Grid.RowDefinitions>
+
+
+
+
+        <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Select Desired Action" VerticalAlignment="Top" FontSize="36" FontFamily="French Script MT" Foreground="#FF2E2B2B" FontWeight="Bold" />
+        <Button Grid.Column="0" Grid.Row="5" x:Name="checkPerson" Content="Check Person" 
+                HorizontalAlignment="Right"  VerticalAlignment="Top" Width="98" Height="57" Foreground="#FF2E2B2B" FontWeight="Bold" FontSize="14" Click="checkPerson_Click" Background="{x:Null}"/>
+        <Button Grid.Column="1" Grid.Row="5" x:Name="insertPerson" Content="Insert Person" HorizontalAlignment="Right" VerticalAlignment="Top" Width="100" Height="57" Foreground="#FF2E2B2B" FontWeight="Bold" FontSize="14" Click="insertPerson_Click" Background="{x:Null}"/>
+        <Button Grid.ColumnSpan="3" Grid.Column="2" Grid.Row="8" x:Name="logOut" Content="Sign Out" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Width="75" Click="logOut_Click" Background="#FF2E2B2B" FontWeight="Bold" Foreground="White" BorderBrush="White"/>
+        <Image Grid.Column="1" Grid.Row="3"  Grid.RowSpan="2" HorizontalAlignment="Right" Height="100"   VerticalAlignment="Top" Width="100" Source="resource/insert.png" OpacityMask="{x:Null}"/>
+        <Image HorizontalAlignment="right" Height="100" Margin="144,10,0,0" Grid.Row="3" Grid.RowSpan="3" VerticalAlignment="Top" Width="100" Source="resource/search.ico"/>
 
     </Grid>
 </Window>

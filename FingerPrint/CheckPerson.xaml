@@ -5,29 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FingerPrint"
         mc:Ignorable="d"
-        Title="CheckPerson" Height="350" Width="525"
-        WindowStartupLocation="CenterScreen">
-    <Grid Background="#FF9CC9DE">
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Select a Finger Print" VerticalAlignment="Top" FontSize="36" FontFamily="Harlow Solid Italic" Foreground="White" Margin="93,24,0,0"/>
-        <Button x:Name="checkPerson" Content="Check Person" HorizontalAlignment="Left" Margin="213,246,0,0" VerticalAlignment="Top" Width="98" Height="39" Foreground="White" FontWeight="Bold" FontSize="14" Click="CheckPerson_Click">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="0"/>
-                    <GradientStop Color="#FF30B1EE" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
-        <Button x:Name="UploadFingerPrint" Content="Upload..." HorizontalAlignment="Left" Margin="274,120,0,0" VerticalAlignment="Top" Width="83" Height="30" Foreground="White" FontWeight="Bold" FontSize="14" Click="UploadFingerPrint_Click">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="0"/>
-                    <GradientStop Color="#FF30B1EE" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
-        <Button x:Name="logOut" Content="Sign Out" HorizontalAlignment="Left" Margin="394,265,0,0" VerticalAlignment="Top" Width="75" Click="LogOut_Click"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Finger Pint" VerticalAlignment="Top" FontSize="24" FontFamily="Microsoft JhengHei UI" Foreground="White" Margin="130,120,0,0"/>
-        <Image x:Name="imageFinger" HorizontalAlignment="Left" Height="162" Margin="369,98,0,0" VerticalAlignment="Top" Width="138"/>
+        Title="CheckPerson" Height="600" Width="600"
+         WindowStartupLocation="CenterScreen"
+        WindowState="Maximized">
+    <Grid >
+        <Grid.Background>
+            <ImageBrush ImageSource="resource/background_image.jpg"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.8*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+        </Grid.RowDefinitions>
+
+
+        <TextBlock  Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="36" FontFamily="French Script MT" Foreground="#FF2E2B2B" FontWeight="Bold" Text="Select a Finger Print" />
+
+        <Button  Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="3" x:Name="checkPerson" Content="Scan" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="156" Height="53" Foreground="#FF2E2B2B" FontSize="22" Click="CheckPerson_Click" Background="{x:Null}" FontWeight="Bold"/>
+        <Button Grid.Column="1" Grid.Row="3" x:Name="UploadFingerPrint" Content="Upload..." HorizontalAlignment="Center"  VerticalAlignment="Top" Width="83" Height="30" Foreground="White" FontWeight="Bold" FontSize="14" Click="UploadFingerPrint_Click" Background="#FF2E2B2B" FontStyle="Italic"/>
+        <Button  Grid.ColumnSpan="3" Grid.Column="2" Grid.Row="8" x:Name="logOut" Content="Back" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Width="75" Click="LogOut_Click" Background="#FF2E2B2B" Foreground="White" BorderBrush="White" FontWeight="Bold"/>
+        <TextBlock   Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" TextWrapping="Wrap" Text="Finger Print Image" VerticalAlignment="Top" Foreground="#FF2E2B2B" FontWeight="Bold" FontSize="20" />
+        <Image Stretch="Uniform" Grid.Column="0" Grid.Row="4"  Grid.ColumnSpan="3" Grid.RowSpan="8" x:Name="imageFinger" HorizontalAlignment="Center" Height="240"  VerticalAlignment="Top" Width="180" OpacityMask="Black" >
+            <Image.Effect>
+                <DropShadowEffect Color="#FF0A0505"/>
+            </Image.Effect>
+        </Image>
 
     </Grid>
 </Window>

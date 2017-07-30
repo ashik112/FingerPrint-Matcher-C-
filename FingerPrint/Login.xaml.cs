@@ -1,19 +1,11 @@
-﻿using System;
+﻿using FingerPrint.Info;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using FingerPrint.DA;
-using FingerPrint.Info;
 
 namespace FingerPrint
 {
@@ -27,35 +19,65 @@ namespace FingerPrint
             InitializeComponent();
         }
 
-        private void signIn(object sender, RoutedEventArgs e)
+
+        public async Task<string> GetInfoAsync(string username, string password)
         {
-            string username = usernameBox.Text;
-            string password = passwordBox.Password.ToString();
-           // MessageBox.Show(username + " "+password);
-            DbActions da = new DbActions();
-            //List<string>[] list = da.Read();
-            List<Agent> agent = da.AgentRead(username,password);
-            if(agent.Count>0)
+            try
             {
-                MessageBox.Show("User Verified!");
-                Home h = new Home();
-                h.Show();
-                this.Hide();
+                HttpClient client = new HttpClient();
+                var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:50211/api/persons/checkagent?username=" + "" + username + "&" + "password=" + "" + password + "" );
+                var content = new MultipartFormDataContent();
+                request.Content = content;
+                var response = await client.SendAsync(request);
+                //MessageBox.Show(await response.Content.ReadAsStringAsync());
+                /*if (responses.IsSuccessStatusCode)
+                {
+                    //user = await responses.Content.ReadAsAsync<User>();
+                    string r = await responses.Content.ReadAsStringAsync();
+                    MessageBox.Show(r);
+                    return await responses.Content.ReadAsStringAsync();
+                }
+                else
+                {
+                    return "not success";
+                }*/
+                return await response.Content.ReadAsStringAsync();
+
+
             }
-
-           /* foreach(Agent a in agent)
+            catch (Exception ex)
             {
-                MessageBox.Show(a.Id + " " +a.Username + " "+ agent.Count);
-            }*/
-           // MessageBox.Show(list[0] + " " + list[1]);
-
+                //MessageBox.Show(ex.Message);
+                return "false";
+            }
         }
+        
 
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
 
             Application.Current.Shutdown();
+        }
+
+        private async void signIn(object sender, RoutedEventArgs e)
+        {
+            string username = usernameBox.Text;
+            string password = passwordBox.Password.ToString();
+           
+            string check = await GetInfoAsync(usernameBox.Text, passwordBox.Password.ToString());
+            //MessageBox.Show(check);
+            if (check.Contains("true"))
+            {
+                //MessageBox.Show(check);
+                Home h = new Home();
+                h.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Username and Password doesn't match");
+            }
         }
     }
 }

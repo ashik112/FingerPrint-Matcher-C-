@@ -36,7 +36,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CloudAFIS.cs" />
     <Compile Include="Converters.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -53,10 +52,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FingerPrint.DA\FingerPrint.DA.csproj">
-      <Project>{e4479130-a39b-41b3-afd3-eb6ad8bef0b6}</Project>
-      <Name>FingerPrint.DA</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FingerPrint.Info\FingerPrint.Info.csproj">
       <Project>{f6719f34-6823-4e59-b0b3-0c3088df1f63}</Project>
       <Name>FingerPrint.Info</Name>

@@ -5,10 +5,6 @@ VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FingerPrint.UI", "FingerPrint\FingerPrint.UI.csproj", "{10BFA8EB-408D-4E5F-A540-8B3EC3634A34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FingerPrint.DA", "FingerPrint.DA\FingerPrint.DA.csproj", "{E4479130-A39B-41B3-AFD3-EB6AD8BEF0B6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FingerPrint.DC", "FingerPrint.DC\FingerPrint.DC.csproj", "{EC7FF8BF-BBFE-4DA7-9822-F30EB1CCEAE0}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FingerPrint.Info", "FingerPrint.Info\FingerPrint.Info.csproj", "{F6719F34-6823-4E59-B0B3-0C3088DF1F63}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FingerPrint.Utilities", "FingerPrint.Utilities\FingerPrint.Utilities.csproj", "{2E83A79C-498C-4506-BF4F-7CF5138186E4}"
@@ -23,14 +19,6 @@ Global
 		{10BFA8EB-408D-4E5F-A540-8B3EC3634A34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10BFA8EB-408D-4E5F-A540-8B3EC3634A34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10BFA8EB-408D-4E5F-A540-8B3EC3634A34}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E4479130-A39B-41B3-AFD3-EB6AD8BEF0B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E4479130-A39B-41B3-AFD3-EB6AD8BEF0B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E4479130-A39B-41B3-AFD3-EB6AD8BEF0B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E4479130-A39B-41B3-AFD3-EB6AD8BEF0B6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EC7FF8BF-BBFE-4DA7-9822-F30EB1CCEAE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC7FF8BF-BBFE-4DA7-9822-F30EB1CCEAE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC7FF8BF-BBFE-4DA7-9822-F30EB1CCEAE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC7FF8BF-BBFE-4DA7-9822-F30EB1CCEAE0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F6719F34-6823-4E59-B0B3-0C3088DF1F63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F6719F34-6823-4E59-B0B3-0C3088DF1F63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6719F34-6823-4E59-B0B3-0C3088DF1F63}.Release|Any CPU.ActiveCfg = Release|Any CPU

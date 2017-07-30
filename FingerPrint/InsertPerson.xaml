@@ -5,24 +5,74 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FingerPrint"
         mc:Ignorable="d"
-        Title="InsertPerson"  Height="350" Width="525"
-        WindowStartupLocation="CenterScreen">
-    <Grid Background="#FF9CC9DE">
-        <TextBlock HorizontalAlignment="Left" Margin="146,172,0,0" TextWrapping="Wrap" Text="Finger Print" VerticalAlignment="Top"/>
-        <Button x:Name="uploadFingerPrint" Content="Upload .." HorizontalAlignment="Left" Margin="254,173,0,0" VerticalAlignment="Top" Width="75" Click="uploadFingerPrint_Click"/>
-        <TextBlock HorizontalAlignment="Left" Margin="146,73,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top"/>
-        <TextBox x:Name="textName" HorizontalAlignment="Left" Height="23" Margin="254,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBlock HorizontalAlignment="Left" Margin="146,107,0,0" TextWrapping="Wrap" Text="Date of Birth" VerticalAlignment="Top"/>
-        <TextBox x:Name="textDOB" HorizontalAlignment="Left" Height="23" Margin="254,100,0,0" TextWrapping="Wrap" Text="DD/MM/YY" VerticalAlignment="Top" Width="120"/>
-        <TextBlock HorizontalAlignment="Left" Margin="146,140,0,0" TextWrapping="Wrap" Text="Gender" VerticalAlignment="Top"/>
-        <RadioButton x:Name="radioMale" Content="Male" HorizontalAlignment="Left" Margin="254,144,0,0" VerticalAlignment="Top" GroupName="Gender" Checked="radioMale_Checked"/>
-        <RadioButton x:Name="radioFemale" Content="Female" HorizontalAlignment="Left" Margin="317,147,0,0" VerticalAlignment="Top" GroupName="Gender" Checked="radioFemale_Checked"/>
-        <Button x:Name="submit" Content="Submit" HorizontalAlignment="Left" Margin="213,245,0,0" VerticalAlignment="Top" Width="116" Height="49" Click="submit_Click"/>
-        <Button x:Name="close" Content="Close" HorizontalAlignment="Left" Margin="432,289,0,0" VerticalAlignment="Top" Width="75" Click="close_Click"/>
-        <TextBlock HorizontalAlignment="Left" Margin="146,35,0,0" TextWrapping="Wrap" Text="Profile Picture" VerticalAlignment="Top"/>
-        <Button x:Name="uploadProfilePic" Content="Upload .." HorizontalAlignment="Left" Margin="254,31,0,0" VerticalAlignment="Top" Width="75" Click="uploadProfilePic_Click"/>
-        <Image x:Name="imageFinger" HorizontalAlignment="Left" Height="135" Margin="401,149,0,0" VerticalAlignment="Top" Width="106"/>
-        <Image x:Name="imageProfile" HorizontalAlignment="Left" Height="134" Margin="401,10,0,0" VerticalAlignment="Top" Width="106"/>
+        Title="InsertPerson"  Height="600" Width="600"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized">
+    <Grid >
+        <Grid.Background>
+            <ImageBrush ImageSource="resource/background_image.jpg"/>
+        </Grid.Background>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+        </Grid.RowDefinitions>
+
+
+        <TextBlock  Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Center" FontSize="36" FontFamily="French Script MT" Foreground="#FF2E2B2B" FontWeight="Bold" Text="Fill out the form" />
+
+        <TextBlock Grid.Column="3" Grid.Row="5" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="Finger Print" VerticalAlignment="Center" FontWeight="Bold"/>
+        <Button Grid.Column="3" Grid.Row="6" x:Name="uploadFingerPrint" Content="Upload .." HorizontalAlignment="Center"  VerticalAlignment="Center" Width="75" Click="uploadFingerPrint_Click" Background="#FF2E2B2B" Foreground="White" FontStyle="Italic" FontWeight="Bold" />
+
+
+        <TextBlock  Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="Name" VerticalAlignment="Center" FontWeight="Bold"/>
+        <TextBox Grid.Column="2" Grid.Row="1" x:Name="textName" HorizontalAlignment="Left" Height="22"  TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
+        <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="Date of Birth" VerticalAlignment="Center" FontWeight="Bold"/>
+        <TextBox Grid.Column="2" Grid.Row="2" x:Name="textDOB" HorizontalAlignment="Left" Height="24"  TextWrapping="Wrap" Text="DD/MM/YY" VerticalAlignment="Center" Width="120"/>
+        <TextBlock Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="Gender" VerticalAlignment="Center" FontWeight="Bold"/>
+        <RadioButton Grid.Column="2" Grid.Row="3" x:Name="radioMale" Content="Male" HorizontalAlignment="Left"  VerticalAlignment="Top" GroupName="Gender" Checked="radioMale_Checked"/>
+        <RadioButton Grid.Column="2" Grid.Row="3" x:Name="radioFemale" Content="Female" HorizontalAlignment="Left"  VerticalAlignment="Bottom" GroupName="Gender" Checked="radioFemale_Checked"/>
+
+
+        <Button Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="13" x:Name="submit" Content="Submit" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="116" Height="48" Click="submit_Click" FontWeight="Bold" FontSize="16" Foreground="White" Background="#FF2E2B2B"/>
+
+        <Button Grid.Column="3" Grid.Row="14" x:Name="close" Content="Back" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Width="75" Click="close_Click" Background="#FF2E2B2B" Foreground="White"/>
+
+
+        <TextBlock Grid.Column="0" Grid.Row="5" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="Profile Picture" VerticalAlignment="Center" FontWeight="Bold"/>
+        <Button Grid.Column="0" Grid.Row="6" x:Name="uploadProfilePic" Content="Upload .." HorizontalAlignment="Center"  VerticalAlignment="Center" Width="75" Click="uploadProfilePic_Click" FontStyle="Italic" Foreground="White" Background="#FF2E2B2B" FontWeight="Bold"/>
+
+        <Image Stretch="Fill" Grid.RowSpan="3" Grid.Column="3" Grid.Row="0" x:Name="imageFinger" HorizontalAlignment="Center" Height="150"  VerticalAlignment="Top" Width="120" Margin="14,30,14,0">
+            <Image.Effect>
+                <DropShadowEffect/>
+            </Image.Effect>
+        </Image>
+        <Image Stretch="Fill" Grid.RowSpan="3" Grid.Column="0" Grid.Row="0" x:Name="imageProfile" HorizontalAlignment="Center" Height="150" Margin="19,30,9,0" VerticalAlignment="Top" Width="120">
+            <Image.Effect>
+                <DropShadowEffect/>
+            </Image.Effect>
+        </Image>
+        <TextBlock Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="Father's Name" VerticalAlignment="Center" FontWeight="Bold" />
+        <TextBlock Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="Mother's Name" VerticalAlignment="Center" FontWeight="Bold" />
 
     </Grid>
 </Window>

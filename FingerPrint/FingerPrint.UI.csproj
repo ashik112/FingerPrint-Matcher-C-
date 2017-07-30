@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>coloredicon_JUO_5.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MySqlConnector, Version=0.22.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MySqlConnector.0.22.0\lib\net451\MySqlConnector.dll</HintPath>
@@ -149,10 +152,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FingerPrint.DA\FingerPrint.DA.csproj">
-      <Project>{e4479130-a39b-41b3-afd3-eb6ad8bef0b6}</Project>
-      <Name>FingerPrint.DA</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FingerPrint.Info\FingerPrint.Info.csproj">
       <Project>{f6719f34-6823-4e59-b0b3-0c3088df1f63}</Project>
       <Name>FingerPrint.Info</Name>
@@ -161,6 +160,25 @@
       <Project>{2e83a79c-498c-4506-bf4f-7cf5138186e4}</Project>
       <Name>FingerPrint.Utilities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resource\background_image.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Iconsmind-Outline-Fingerprint-2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Iconsmind-Outline-Finger-Print.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="coloredicon_jgX_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="coloredicon_JUO_5.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resource\insert.png" />
+    <Resource Include="resource\search.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

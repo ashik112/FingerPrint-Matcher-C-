@@ -5,14 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FingerPrint"
         mc:Ignorable="d"
-        Title="CustomWindow" Height="300" Width="300">
-    <Grid Background="#FF9CC9DE">
-        <Image x:Name="ImageProfile" HorizontalAlignment="Left" Height="68" Margin="22,10,0,0" VerticalAlignment="Top" Width="56"/>
-        <TextBlock HorizontalAlignment="Left" Margin="22,103,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="22,124,0,0" TextWrapping="Wrap" Text="Gender" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="22,145,0,0" TextWrapping="Wrap" Text="Date of Birth" VerticalAlignment="Top"/>
-        <Image x:Name="ImageFinger" HorizontalAlignment="Left" Height="135" Margin="184,46,0,0" VerticalAlignment="Top" Width="98"/>
-        <Button x:Name="buttonOK" Content="OK" HorizontalAlignment="Left" Margin="117,239,0,0" VerticalAlignment="Top" Width="75" Click="buttonOK_Click"/>
+        Title="Search Result" Height="300" Width="300"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="resource/background_image.jpg"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+        </Grid.RowDefinitions>
+
+
+
+        <Image Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="1" x:Name="ImageProfile" HorizontalAlignment="Center" Height="150"  VerticalAlignment="Bottom" Width="100"  Grid.RowSpan="4">
+            <Image.Effect>
+                <DropShadowEffect/>
+            </Image.Effect>
+        </Image>
+        <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right"  TextWrapping="Wrap" Text="Name :" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right"  TextWrapping="Wrap" Text="Gender :" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right"  TextWrapping="Wrap" Text="Date of Birth :" VerticalAlignment="Center"/>
+
+        <!--<Image Stretch="UniformToFill" Grid.Column="1" Grid.Row="5" x:Name="ImageFinger" HorizontalAlignment="Left" Height="200"  VerticalAlignment="Top" Width="150">
+            <Image.Effect>
+                <DropShadowEffect/>
+            </Image.Effect>
+        </Image>-->
+        <Button Grid.Column="1" Grid.Row="7"  x:Name="buttonOK" Content="OK" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="76" Click="buttonOK_Click" Background="#FF2E2B2B" Foreground="White" FontWeight="Bold" Height="40" Margin="11,10,11,0" Grid.RowSpan="2"/>
+
+        <TextBlock x:Name="textName" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center"/>
+        <TextBlock x:Name="textGender" Grid.Column="1" HorizontalAlignment="Center"  Grid.Row="3" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center"/>
+        <TextBlock x:Name="textDOB" Grid.Column="1" HorizontalAlignment="Center"  Grid.Row="4" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center"/>
 
     </Grid>
 </Window>

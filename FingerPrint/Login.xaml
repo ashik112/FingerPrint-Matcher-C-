@@ -5,22 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FingerPrint"
         mc:Ignorable="d"
-        Title="Greetings" Height="350" Width="525"
-        WindowStartupLocation="CenterScreen">
-    <Grid Background="#FF9CC9DE">
-        <TextBlock HorizontalAlignment="Left" Margin="60,52,0,0" TextWrapping="Wrap" Text="Please enter your credentials" VerticalAlignment="Top" FontSize="36" FontFamily="Harlow Solid Italic" Foreground="White"/>
-        <TextBlock HorizontalAlignment="Left" Margin="161,126,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
-        <TextBlock HorizontalAlignment="Left" Margin="161,155,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
-        <TextBox x:Name="usernameBox" HorizontalAlignment="Left" Height="23" Margin="249,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="14"/>
-        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Height="23" Margin="249,152,0,0"  VerticalAlignment="Top" Width="120" FontSize="14"/>
-        <Button Content="Sign In" FontSize="16" HorizontalAlignment="Left" Margin="216,226,0,0" VerticalAlignment="Top" Width="104" Click="signIn" Height="40" Foreground="White" FontWeight="Bold">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="0"/>
-                    <GradientStop Color="#FF30B1EE" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
+        Title="CloudAFIS" Height="600" Width="600"
+      
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized">
+    <Grid FocusManager.FocusedElement="{Binding ElementName=usernameBox}">
+        <Grid.Background>
+            <ImageBrush ImageSource="resource/background_image.jpg"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+        </Grid.RowDefinitions>
+
+
+
+
+
+
+
+
+        <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"  HorizontalAlignment="Center" TextWrapping="Wrap" Text="Please enter your credentials" VerticalAlignment="Center" FontSize="36" FontFamily="French Script MT" Foreground="#FF2E2B2B" FontWeight="Bold"/>
+        <TextBlock Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right"  TextWrapping="Wrap" Text="Username"  FontWeight="Bold" FontSize="18" Foreground="#FF2E2B2B"/>
+        <TextBlock Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right"  TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" FontWeight="Bold" FontSize="18" Foreground="#FF2E2B2B"/>
+        <TextBox  Grid.Column="1" Grid.Row="3" x:Name="usernameBox" HorizontalAlignment="Center" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" FontSize="14" Background="{x:Null}"/>
+        <PasswordBox Grid.Column="1" Grid.Row="4" x:Name="passwordBox" HorizontalAlignment="Center"   VerticalAlignment="Top" FontSize="14" Width="150" Height="25" Background="{x:Null}"  />
+        <Button Grid.ColumnSpan="3" Grid.Row="5" Content="Sign In" FontSize="16" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="104" Click="signIn" Height="40" Foreground="#FF2E2B2B" FontWeight="Bold" Background="{x:Null}"/>
 
     </Grid>
 </Window>

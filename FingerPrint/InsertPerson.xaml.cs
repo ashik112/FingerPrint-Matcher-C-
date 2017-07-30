@@ -1,19 +1,15 @@
-﻿using Microsoft.Win32;
-using System;
-using System.IO;
-using System.Windows;
-using System.Windows.Media.Imaging;
-using FingerPrint.DA;
-using System.Windows.Media;
+﻿using FingerPrint.Info;
 using FingerPrint.Utilities;
-using SourceAFIS.Simple;
+using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
-using FingerPrint.Info;
+using System.IO;
 using System.Net.Http;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Threading;
+using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace FingerPrint
 {
@@ -22,12 +18,12 @@ namespace FingerPrint
     /// Interaction logic for InsertPerson.xaml
     /// </summary>
     /// 
-   
 
-    public partial class InsertPerson : Window
+
+    public partial  class  InsertPerson : Window
     {
         
-        private Home home;
+        public static  Home home;
         static byte[] ImageProfile;
         static byte[] ImageFinger;
         string gender;
@@ -36,12 +32,12 @@ namespace FingerPrint
        
 
         OpenFileDialog op;
-        OpenFileDialog op2;
+        //OpenFileDialog op2;
 
-        public InsertPerson( Home home)
+        public InsertPerson( Home h)
         {
             op = new OpenFileDialog();
-            this.home = home;
+            home = h;
             ImageProfile = new byte[10];
             ImageFinger = new byte[10];
             InitializeComponent();
@@ -52,7 +48,8 @@ namespace FingerPrint
         private void close_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-            this.home.Show();
+            home.Show();
+            //this.Close();
         }
 
         private void uploadProfilePic_Click(object sender, RoutedEventArgs e)
@@ -68,10 +65,12 @@ namespace FingerPrint
                 /*
                  * TIF to JPEG
                  * */
+                bool tif = false;
                 if (op.FileName.Contains(".tif"))
                 {
                     Bitmap.FromFile(op.FileName).Save(Path.GetDirectoryName(op.FileName)+"\\"+Path.GetFileNameWithoutExtension(op.FileName) + "_Profile.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
-                    ImagePath = Path.GetDirectoryName(op.FileName) + "\\" + Path.GetFileNameWithoutExtension(op.FileName) + "_Profile.jpg";                   
+                    ImagePath = Path.GetDirectoryName(op.FileName) + "\\" + Path.GetFileNameWithoutExtension(op.FileName) + "_Profile.jpg";
+                    tif = true;
                 }   
 
                 FileStream fs = new FileStream(ImagePath, FileMode.Open, FileAccess.Read);
@@ -83,10 +82,15 @@ namespace FingerPrint
                 /*
                  * Delete Image
                  * */
-                if (File.Exists(ImagePath))
+                if(tif)
                 {
-                    File.Delete(ImagePath);
+                    if (File.Exists(ImagePath))
+                    {
+                        File.Delete(ImagePath);
+                    }
+
                 }
+               
                 imageProfile.Source = new BitmapImage(new Uri(op.FileName));
                
             }
@@ -102,7 +106,7 @@ namespace FingerPrint
               "Portable Network Graphic (*.png)|*.png";
             if (op.ShowDialog() == true)
             {
-               
+                bool tif = false;
                 string ImagePath = op.FileName;
 
                 /*
@@ -114,6 +118,7 @@ namespace FingerPrint
 
 
                     ImagePath = Path.GetDirectoryName(op.FileName) + "\\" + Path.GetFileNameWithoutExtension(op.FileName) + "_Finger.jpg";
+                    tif = true;
                    
                 }
                 //Convert to Byte//
@@ -134,35 +139,73 @@ namespace FingerPrint
                 /*
                 * Delete Image
                 * */
-                if (File.Exists(ImagePath))
+                if (tif)
                 {
-                    File.Delete(ImagePath);
+                    if (File.Exists(ImagePath))
+                    {
+                        File.Delete(ImagePath);
+                    }
+
                 }
-                
+
                 imageFinger.Source = new BitmapImage(new Uri(op.FileName));
                 
 
             }
         }
 
-        private  void submit_Click(object sender, RoutedEventArgs e)
+        private async void submit_Click(object sender, RoutedEventArgs e)
         {
-           
-            
+            try
+            {
+                HttpClient client = new HttpClient();
+                var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:50211/api/check");
+                var content = new MultipartFormDataContent();
 
-            MyPerson person = CloudAFIS.GetTemplateObject(FingerImage);
-            List<MyPerson> p = new List<MyPerson>();
-            p.Add(person);
-            BinaryFormatter formatter = new BinaryFormatter();
-            MemoryStream ms = new MemoryStream();
-            formatter.Serialize(ms, person);
-            byte[] steam = ms.GetBuffer();
-            UploadTemplate(steam,textName.Text, gender,textDOB.Text, "", "");
+                byte[] byteArray = ImageFinger;
+                //content.Add(new ByteArrayContent(byteArray), "file", "file.jpg");
+                content.Add(new ByteArrayContent(byteArray));
+                request.Content = content;
+                //request.Content = new ByteArrayContent(byteArray);
+
+                var response = await client.SendAsync(request);
+                //response.EnsureSuccessStatusCode();
+                string res = await response.Content.ReadAsStringAsync();
+                // MessageBox.Show(await response.Content.ReadAsStringAsync());
+                if (res.Length > 0 && imageFinger.Source != null)
+                {
+                    MessageBox.Show("Person Already Exist");
+                    // CustomWindow cs = new CustomWindow(res);
+                    //  cs.Show();
+                }
+                else
+                {
+                    UploadTemplate(textName.Text, gender, textDOB.Text, "", "", this, home);
+                    //MessageBox.Show("Can not find a match!");
+                }
+
+                //return await response.Content.ReadAsStringAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Occured: " + ex.Message);
+            }
 
 
-         
+
+            /* MyPerson person = CloudAFIS.GetTemplateObject(FingerImage);
+             List<MyPerson> p = new List<MyPerson>();
+             p.Add(person);
+             BinaryFormatter formatter = new BinaryFormatter();
+             MemoryStream ms = new MemoryStream();
+             formatter.Serialize(ms, person);
+             byte[] steam = ms.GetBuffer();*/
+           // UploadTemplate(textName.Text, gender, textDOB.Text, "", "", this, home);
+
+
+
             //  MyPerson person = CloudAFIS.GetTemplateObject(Converters.ByteToBitmapImage(ImageFinger));
-          //  MyPerson person = CloudAFIS.GetTemplateObject(FingerImage);
+            //  MyPerson person = CloudAFIS.GetTemplateObject(FingerImage);
             // string person = cloud.GetTemplate(Converters.ByteToBitmapImage(ImageFinger));
 
 
@@ -242,46 +285,62 @@ namespace FingerPrint
             }
         }
 
-        public static async void UploadTemplate(byte[] template,string name,string gender, string dob,string plocation,string flocation)
+        public static async void UploadTemplate(string name,string gender, string dob,string plocation,string flocation, InsertPerson person, Home home)
         {
+            try
+            {
 
-            //Thread thread = new Thread(new ThreadStart(WorkThreadFunction));
-            //thread.Start();
+                //Thread thread = new Thread(new ThreadStart(WorkThreadFunction));
+                //thread.Start();
 
-            Task<string> p = UploadProfile(); 
-             plocation = await p;
+                Task<string> p = UploadProfile();
+                plocation = await p;
 
-            Task<string> f = UploadFinger();
-            // flocation = UploadFinger().GetAwaiter().GetResult();
-            flocation = await f;
-            /*plocation = plocation.Replace('"', ' ').Trim();
-            flocation = flocation.Replace('"', ' ').Trim();
+                Task<string> f = UploadFinger();
+                // flocation = UploadFinger().GetAwaiter().GetResult();
+                flocation = await f;
+                /*plocation = plocation.Replace('"', ' ').Trim();
+                flocation = flocation.Replace('"', ' ').Trim();
 
-            plocation = plocation.Replace(@"\\", @"\");
-            flocation = flocation.Replace(@"\\", @"\");*/
-            MessageBox.Show(plocation+ "\n\n\n "+flocation);
+                plocation = plocation.Replace(@"\\", @"\");
+                flocation = flocation.Replace(@"\\", @"\");*/
+                //MessageBox.Show(plocation+ "\n\n\n "+flocation);
 
-            HttpClient client = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:50211/api/upload/uploadtemplate?name="+"{"+ name + "}&"+"gender="+"{"+gender+"}"+"&"+"dob="+"{"+dob+"}"
-                +"&"+"plocation="+"{"+plocation+"}"+"&"+"flocation="+"{"+flocation+"}");
-            var content = new MultipartFormDataContent();
+                HttpClient client = new HttpClient();
+                var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:50211/api/upload/uploadperson?name=" + "{" + name + "}&" + "gender=" + "{" + gender + "}" + "&" + "dob=" + "{" + dob + "}"
+                    + "&" + "plocation=" + "{" + plocation + "}" + "&" + "flocation=" + "{" + flocation + "}");
+                var content = new MultipartFormDataContent();
 
-            byte[] byteArray = template;
-            //content.Add(new ByteArrayContent(byteArray), "file", "file.jpg");
-            content.Add(new ByteArrayContent(byteArray));
-            //content.Add(new StringContent("name"));
-            //content.Add(new StringContent("gender"));
-            //content.Add(new StringContent("dob"));
-            request.Content = content;
-           // request.Content = new ByteArrayContent(byteArray);
+                //byte[] byteArray = template;
+                //content.Add(new ByteArrayContent(byteArray), "file", "file.jpg");
+                //content.Add(new ByteArrayContent(byteArray));
+                //content.Add(new StringContent("name"));
+                //content.Add(new StringContent("gender"));
+                //content.Add(new StringContent("dob"));
+                request.Content = content;
+                // request.Content = new ByteArrayContent(byteArray);
 
-            var response = await client.SendAsync(request);
-            //response.EnsureSuccessStatusCode();
-            MessageBox.Show(await response.Content.ReadAsStringAsync());
+                var response = await client.SendAsync(request);
+                //response.EnsureSuccessStatusCode();
+                MessageBox.Show(await response.Content.ReadAsStringAsync());
+                string check = await response.Content.ReadAsStringAsync();
+                if (check.Contains("Successful"))
+                {
+                    home.Show();
+                    person.Hide();
+                    //person.Close();
+
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error Occured: "+ex.Message);
+            }
             // return await response.Content.ReadAsStringAsync();
             //return await response.Content.ReadAsStringAsync();
         }
 
+        
 
         private void radioMale_Checked(object sender, RoutedEventArgs e)
         {

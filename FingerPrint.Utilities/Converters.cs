@@ -182,5 +182,7 @@ namespace FingerPrint.Utilities
           image.Freeze();
           return image;
       }*/
+
+        public static void Main() { }
     }
 }
